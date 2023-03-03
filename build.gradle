@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'war'
+}
+
+group = 'com.baeldung'
+version = '1.0-SNAPSHOT'
+description = 'spring-security-saml'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://build.shibboleth.net/nexus/content/repositories/releases/"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.security.extensions:spring-security-saml2-core:1.0.10.RELEASE'
+    implementation group: 'org.springframework.security.extensions', name: 'spring-security-saml2-core', version: '1.0.10.RELEASE'
+}
+
+bootWar {
+    archiveFileName = "spring-security-saml.war"
+}
+
+configurations {
+    runtimeClasspath {
+        extendsFrom compileClasspath
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
